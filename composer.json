@@ -11,7 +11,7 @@
   "license": "BSD 3-Clause",
   "authors": [
     {
-      "name": "Thrieu Ding",
+      "name": "Theo Ding",
       "email": "shiberiu@gmail.com"
     }
   ],
@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "thrieu\\grid-view-state\\": ""
+      "thrieu\\grid\\": ""
     }
   }
 }
