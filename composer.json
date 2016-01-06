@@ -1,0 +1,27 @@
+{
+  "name": "thrieu/yii2-grid-view-state",
+  "description": "Under development",
+  "keywords": [
+    "yii2",
+    "extension",
+    "widget"
+  ],
+  "homepage": "https://github.com/thrieu/yii2-grid-view-state",
+  "type": "yii2-extension",
+  "license": "BSD 3-Clause",
+  "authors": [
+    {
+      "name": "Thrieu Ding",
+      "email": "shiberiu@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "yiisoft/yii2": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "thrieu\\grid-view-state\\": ""
+    }
+  }
+}
