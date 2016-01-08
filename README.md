@@ -7,7 +7,8 @@ Save filters from GridView to session, keep the filter state between pages.
 3. Determines the uniqueness by the action route and a customizable ID.
 
 ## Usage
-1. Extend the GridView class, simply implement FilterStateInterface and FilterStateTrait.
+### Step 1
+Extend GridView class, simply implement FilterStateInterface and FilterStateTrait.
 ```php
 namespace \app\widgets;
 
@@ -18,8 +19,8 @@ class GridView extends \yii\grid\GridView implements FilterStateInterface {
     use FilterStateTrait;
 }
 ```
-
-2. Attach behavior to your GridView widget.
+### Step 2
+Attach behavior to your GridView widget.
 ```php
 GridView::widget([
 ...
@@ -27,8 +28,8 @@ GridView::widget([
 ...
 ]);
 ```
-
-3. Get the params which merging the GridView state params with GET query params and set it to the filter model and the DataProvider.
+### Step 3
+Get the params which merging the GridView state params with GET query params and set it to the filter model and the DataProvider.
 ```php
 // Filter model
 $chrModel->load(GridView::getMergedFilterStateParams());
