@@ -47,4 +47,4 @@ $dataProvider = new ActiveDataProvider([
 ```
 
 ## Roadmap
-The functionality of clearing the state would be added in the nearly future.
+The functionality of clearing state would be added in the nearly future.
