@@ -32,7 +32,7 @@ GridView::widget([
 Get the params which merging the GridView state params with GET query params and set it to the filter model and the DataProvider.
 ```php
 // Filter model
-$chrModel->load(GridView::getMergedFilterStateParams());
+$model->load(GridView::getMergedFilterStateParams());
 // DataProvider
 $dataProvider = new ActiveDataProvider([
     'query' => $query,
