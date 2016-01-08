@@ -20,7 +20,7 @@ class GridView extends \yii\grid\GridView implements FilterStateInterface {
 }
 ```
 ### Step 2
-Attach behavior to your GridView widget.
+Attach the filter behavior to your GridView widget.
 ```php
 GridView::widget([
 ...
