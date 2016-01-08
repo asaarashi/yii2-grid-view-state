@@ -4,7 +4,7 @@ Save filters from GridView to session, keep the filter state between pages.
 ## Features
 1. Very flexible. Separate setting and setting.
 2. Setting via behavior.
-3. Determines the GridView uniqueness by action route and customized ID.
+3. Determines the uniqueness by the action route and a customizable ID.
 
 ## Usage
 1. Extend the GridView class, simply implement FilterStateInterface and FilterStateTrait.
