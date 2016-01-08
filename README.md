@@ -9,7 +9,6 @@ Save filters from GridView to session, keep the filter state between pages.
 ## Usage
 1. Extend the GridView class, simply implement FilterStateInterface and FilterStateTrait.
 ```php
-
 namespace \app\widgets;
 
 use thrieu\grid\FilterStateInterface;
