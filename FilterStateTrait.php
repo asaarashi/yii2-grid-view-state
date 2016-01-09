@@ -13,8 +13,11 @@ trait FilterStateTrait {
     }
 
     public static function getFilterStateParams($id = null) {
-        $state = Yii::$app->session->get(FilterStateBehavior::buildKey($id !== null ? $id : ''));
-        return $state !== null ? $state : [];
+        return FilterStateBehavior::getState($id);
+    }
+
+    public static function clearFilterStateParams($id = null) {
+        FilterStateBehavior::clearState($id);
     }
 
     public static function getMergedFilterStateParams($id = null, $params = null) {

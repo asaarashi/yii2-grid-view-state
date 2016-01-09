@@ -8,14 +8,17 @@ use yii\grid\DataColumn;
 use yii\helpers\Html;
 use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
+use yii\web\Request;
 
 class FilterStateBehavior extends Behavior {
     const KEY_PREFIX = 'FilterStateBehavior';
     public $id;
+    public $clearParam = 'clear-state';
+    public $params;
 
-    /** @var \yii\grid\GridView $_gridView */
-    protected $_gridView;
-    protected $_state;
+    /** @var \yii\grid\GridView $gridView */
+    protected $gridView;
+    protected $state;
 
     public function events() {
         return [
@@ -28,14 +31,27 @@ class FilterStateBehavior extends Behavior {
         if( ! $session->isActive) {
             $session->open();
         }
-        $this->saveState();
+
+        if (($params = $this->params) === null) {
+            $request = Yii::$app->getRequest();
+            $params = $request instanceof Request ? $request->getQueryParams() : [];
+        }
+
+        if(isset($params[$this->clearParam]) && $params[$this->clearParam] !== '0') {
+            $this->clearState($this->id);
+        } else {
+            $this->readAndSaveState();
+        }
     }
 
-    public function saveState() {
+    /**
+     * Retrieves state params from GridView and save it to session, including filter params, sort params and pagination params.
+     */
+    public function readAndSaveState() {
         $session = Yii::$app->session;
         /** @var \yii\grid\GridView $gridView */
-        $this->_gridView = $gridView = $this->owner;
-        $this->_state = FilterStateTrait::getFilterStateParams($this->id);
+        $this->gridView = $gridView = $this->owner;
+        $this->state = FilterStateTrait::getFilterStateParams($this->id);
         // Filter
         /** @var \yii\grid\DataColumn $column */
         foreach ($gridView->columns as $column) {
@@ -50,40 +66,40 @@ class FilterStateBehavior extends Behavior {
         if ($gridView->dataProvider->getSort() !== false) {
             $sort = $gridView->dataProvider->getSort();
             if (($sortValue = ArrayHelper::getValue($sort->params, $sort->sortParam)) !== null) {
-                $this->_state[$sort->sortParam] = $sortValue;
+                $this->state[$sort->sortParam] = $sortValue;
             } else {
-                unset($this->_state[$sort->sortParam]);
+                unset($this->state[$sort->sortParam]);
             }
         }
         // Pagination
         if ($gridView->dataProvider->getPagination() !== false) {
             $pagination = $gridView->dataProvider->getPagination();
             if (($pageValue = ArrayHelper::getValue($pagination->params, $pagination->pageParam)) !== null) {
-                $this->_state[$pagination->pageParam] = $pageValue;
+                $this->state[$pagination->pageParam] = $pageValue;
             } else {
-                unset($this->_state[$pagination->pageParam]);
+                unset($this->state[$pagination->pageParam]);
             }
             if (($pageSizeValue = ArrayHelper::getValue($pagination->params, $pagination->pageSizeParam)) !== null) {
-                $this->_state[$pagination->pageSizeParam] = $pageSizeValue;
+                $this->state[$pagination->pageSizeParam] = $pageSizeValue;
             } else {
-                unset($this->_state[$pagination->pageSizeParam]);
+                unset($this->state[$pagination->pageSizeParam]);
             }
         }
 
-        $session->set(static::buildKey($this->id), $this->_state);
+        $session->set(static::buildKey($this->id), $this->state);
     }
 
     /**
+     * Set filter state params, which is going to be set to session.
      * @param $column
-     * @return void
      */
     public function composeFilterState($column) {
         if (!preg_match('/(^|.*\])([\w\.]+)(\[.*|$)/', $column->attribute, $matches)) {
             throw new InvalidParamException('Attribute name must contain word characters only.');
         }
 
-        $formName = $this->_gridView->filterModel->formName();
-        $value = Html::getAttributeValue($this->_gridView->filterModel, $column->attribute);
+        $formName = $this->gridView->filterModel->formName();
+        $value = Html::getAttributeValue($this->gridView->filterModel, $column->attribute);
         $keys = [$formName];
         if ($matches[1] === '') {
             $keys[] = $matches[2];
@@ -98,7 +114,7 @@ class FilterStateBehavior extends Behavior {
             }
         }
 
-        $s = &$this->_state;
+        $s = &$this->state;
         foreach ($keys as $key) {
             if (end($keys) === $key) {
                 if($value === null) {
@@ -114,10 +130,30 @@ class FilterStateBehavior extends Behavior {
     }
 
     /**
-     * @param $id
+     * Removes state params from session
+     * @param string $id
+     */
+    public static function clearState($id = null) {
+        Yii::$app->session->remove(FilterStateBehavior::buildKey($id !== null ? $id : ''));
+    }
+
+    /**
+     * Builds a unique key for the GridView.
+     * It determines uniqueness of the GridView by a glue string of the current action route and a specified ID.
+     * @param string $id
      * @return string
      */
     public static function buildKey($id) {
         return static::KEY_PREFIX . '_' . md5(Yii::$app->controller->route.$id);
+    }
+
+    /**
+     * Retrieve state params from session.
+     * @param string $id
+     * @return array
+     */
+    public static function getState($id = null) {
+        $state = Yii::$app->session->get(FilterStateBehavior::buildKey($id !== null ? $id : ''));
+        return $state !== null ? $state : [];
     }
 }
