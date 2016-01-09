@@ -2,13 +2,38 @@
 Save filters from GridView to session, keep the filter state between pages.
 
 ## Features
-1. Very flexible. Separate setting and setting.
+1. Very flexible. Separate setting and getting.
 2. Setting via behavior.
 3. Determines the uniqueness by the action route and a customizable ID.
 
+## Installation 
+1.  The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+    Add the following section to your `composer.json`
+    ```
+    "repositories":[
+        {
+            "type": "git",
+            "url": "https://github.com/thrieu/yii2-grid-view-state.git"
+        }
+    ]
+    ```
+2.  Then either run
+    ```
+    php composer.phar require --prefer-dist thrieu/yii2-grid-view-state "dev-master"
+    ```
+    
+    or add
+    
+    ```
+    "codeimpact/yii2-resque": "dev-master"
+    ```
+    
+    to the require section of your `composer.json` file and then run `composer update`.
+
 ## Usage
 ### Step 1
-Extend GridView class, simply implement FilterStateInterface and FilterStateTrait.
+Extend `GridView` class, simply implement `FilterStateInterface` and `FilterStateTrait`.
 ```php
 namespace \app\widgets;
 
@@ -20,7 +45,7 @@ class GridView extends \yii\grid\GridView implements FilterStateInterface {
 }
 ```
 ### Step 2
-Attach the filter behavior to your GridView widget.
+Attach the filter behavior to your `GridView` widget.
 ```php
 GridView::widget([
 ...
@@ -29,7 +54,7 @@ GridView::widget([
 ]);
 ```
 ### Step 3
-Get the params which merging the GridView state params with GET query params and set it to the filter model and the DataProvider.
+Get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
 ```php
 // Filter model
 $model->load(GridView::getMergedFilterStateParams());
