@@ -29,7 +29,7 @@ Save filters from GridView to session, keep the filter state between pages.
     "codeimpact/yii2-resque": "dev-master"
     ```
     
-    to the require section of your `composer.json` file.
+    to the require section of your `composer.json` file and then run `composer update`.
 
 ## Usage
 ### Step 1
