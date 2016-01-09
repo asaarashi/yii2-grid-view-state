@@ -101,7 +101,11 @@ class FilterStateBehavior extends Behavior {
         $s = &$this->_state;
         foreach ($keys as $key) {
             if (end($keys) === $key) {
-                is_array($s) and $s[$key] = $value;
+                if($value === null) {
+                    $s[$key] = null;
+                } else if(is_array($s)) {
+                    $s[$key] = $value;
+                }
             } else {
                 $s[$key] = isset($s[$key]) ? $s[$key] : [];
                 $s = &$s[$key];
