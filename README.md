@@ -54,7 +54,7 @@ GridView::widget([
 ]);
 ```
 ### Step 3
-Read the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
+Get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
 ```php
 // Filter model
 $model->load(GridView::getMergedFilterStateParams());
