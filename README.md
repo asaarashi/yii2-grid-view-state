@@ -26,7 +26,7 @@ Save filters from GridView to session, keep the filter state between pages.
     or add
     
     ```
-    "codeimpact/yii2-resque": "dev-master"
+    "thrieu/yii2-grid-view-state": "dev-master"
     ```
     
     to the require section of your `composer.json` file and then run `composer update`.
