@@ -13,8 +13,6 @@ use yii\web\Request;
 class FilterStateBehavior extends Behavior {
     const KEY_PREFIX = 'FilterStateBehavior';
     public $id;
-    public $clearParam = 'clear-state';
-    public $params;
 
     /** @var \yii\grid\GridView $gridView */
     protected $gridView;
@@ -32,16 +30,7 @@ class FilterStateBehavior extends Behavior {
             $session->open();
         }
 
-        if (($params = $this->params) === null) {
-            $request = Yii::$app->getRequest();
-            $params = $request instanceof Request ? $request->getQueryParams() : [];
-        }
-
-        if(isset($params[$this->clearParam]) && $params[$this->clearParam] !== '0') {
-            $this->clearState($this->id);
-        } else {
-            $this->readAndSaveState();
-        }
+        $this->readAndSaveState();
     }
 
     /**
