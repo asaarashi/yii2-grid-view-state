@@ -17,7 +17,7 @@ class ClearFilterStateBehavior extends ActionFilter {
             $params = $request instanceof Request ? $request->getQueryParams() : [];
         }
 
-        if(isset($params[$this->clearStateParam]) && !in_array($params[$this->clearStateParam], ['0', ''], true)) {
+        if(isset($params[$this->clearStateParam]) && $params[$this->clearStateParam] === '1') {
             FilterStateTrait::clearFilterStateParams($this->id);
         }
     }

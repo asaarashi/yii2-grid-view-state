@@ -29,6 +29,8 @@ class FilterStateBehavior extends Behavior {
             $session->open();
         }
 
+        $this->gridView = $this->owner;
+
         $this->readAndSaveState();
     }
 
@@ -38,7 +40,7 @@ class FilterStateBehavior extends Behavior {
     public function readAndSaveState() {
         $session = Yii::$app->session;
         /** @var \yii\grid\GridView $gridView */
-        $this->gridView = $gridView = $this->owner;
+        $gridView = $this->gridView;
         $this->state = FilterStateTrait::getFilterStateParams($this->id);
         // Filter
         /** @var \yii\grid\DataColumn $column */
