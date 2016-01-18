@@ -8,7 +8,6 @@ use yii\grid\DataColumn;
 use yii\helpers\Html;
 use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
-use yii\web\Request;
 
 class FilterStateBehavior extends Behavior {
     const KEY_PREFIX = 'FilterStateBehavior';
