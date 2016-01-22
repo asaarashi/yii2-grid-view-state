@@ -45,7 +45,7 @@ class FilterStateBehavior extends Behavior {
         // Filter
         /** @var \yii\grid\DataColumn $column */
         foreach ($gridView->columns as $column) {
-            if (!$column instanceof DataColumn && $column->attribute !== null) {
+            if (!$column instanceof DataColumn || $column->attribute === null) {
                 continue;
             }
             if ($column->filter !== false) {
