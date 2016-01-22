@@ -29,5 +29,6 @@ class ClearFilterStateBehavior extends ActionFilter {
                 Yii::$app->request->setQueryParams($params);
             }
         }
+        return true;
     }
 }
