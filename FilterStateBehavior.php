@@ -48,7 +48,7 @@ class FilterStateBehavior extends Behavior {
             if (!$column instanceof DataColumn || $column->attribute === null) {
                 continue;
             }
-            if ($column->filter !== false) {
+            if ($column->filter !== false || $column->filter !== null) {
                 $this->composeFilterState($column);
             }
         }
