@@ -10,6 +10,7 @@ class ClearFilterStateBehavior extends ActionFilter {
     public $id;
     public $params;
     public $clearStateParam = 'clear-state';
+    public $redirectToParam = 'redirect-to';
     public $exitIfAjax = true;
 
     public function beforeAction($action) {
@@ -18,13 +19,13 @@ class ClearFilterStateBehavior extends ActionFilter {
             $params = $request instanceof Request ? $request->post() : [];
         }
 
-        if(isset($params[$this->clearStateParam]) && $params[$this->clearStateParam] === '1') {
+        if(isset($params[$this->clearStateParam]) && $params[$this->clearStateParam] != '0') {
             FilterStateTrait::clearFilterStateParams($this->id);
 
             if(Yii::$app->request->getIsAjax() && $this->exitIfAjax) {
                 Yii::$app->end();
-            } else {
-                Yii::$app->response->refresh();
+            } else if(isset($params[$this->redirectToParam])) {
+                Yii::$app->response->redirect($params[$this->redirectToParam]);
             }
             return false;
         }
