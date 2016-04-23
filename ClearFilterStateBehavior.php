@@ -24,8 +24,10 @@ class ClearFilterStateBehavior extends ActionFilter {
 
             if(Yii::$app->request->getIsAjax() && $this->exitIfAjax) {
                 Yii::$app->end();
-            } else if(isset($params[$this->redirectToParam])) {
-                Yii::$app->response->redirect($params[$this->redirectToParam]);
+            } else {
+                $redirectTo = isset($params[$this->redirectToParam]) ?
+                    $params[$this->redirectToParam] : Yii::$app->controller->getRoute();
+                Yii::$app->response->redirect($redirectTo);
             }
             return false;
         }
