@@ -47,13 +47,11 @@ class FilterStateBehavior extends Behavior {
         foreach ($gridView->columns as $column) {
             if (!$column instanceof DataColumn
                 || $column->attribute === null
-                || $column->filter === null
                 || $column->filter === false) {
                 continue;
             }
-            if ($column->filter !== false || $column->filter !== null) {
-                $this->composeFilterState($column);
-            }
+
+            $this->composeFilterState($column);
         }
         // Sort
         if ($gridView->dataProvider->getSort() !== false) {
