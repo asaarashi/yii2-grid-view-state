@@ -4,7 +4,7 @@ Save filters from GridView to session, keep the filter state between pages.
 ## Features
 1. Very flexible. Separate setting and getting.
 2. Setting via behavior.
-3. Determines the uniqueness by the action route and a customizable ID.
+3. Determines uniqueness by the action route and a customizable ID.
 
 ## Installation 
 1.  The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
@@ -71,5 +71,28 @@ $dataProvider = new ActiveDataProvider([
 ]);
 ```
 
-## Roadmap
-The functionality of clearing state would be added in the nearly future.
+### Clear state
+Add `ClearFilterStateBehavior` to your `behaviors()` of your controller.
+```php
+    public function behaviors()
+    {
+        return [
+            ...
+            'clearFilterState' => ClearFilterStateBehavior::className(),
+            ...
+        ];
+    }
+
+```
+And then add a form to your frontend page.
+```html
+        $form = Html::beginForm();
+        $form.= Html::hiddenInput('clear-state', '1');
+        $form.= Html::hiddenInput('redirect-to', '');
+        $form.= Button::widget([
+            'label' => '<i class="fa fa-refresh"></i> ' . Yii::t('app', 'Reset filter'),
+        ]);
+        $form.= Html::endForm();
+```
+
+Enjoy it.
