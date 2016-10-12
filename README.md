@@ -72,7 +72,7 @@ $dataProvider = new ActiveDataProvider([
 ```
 
 ### Clear state
-Add `ClearFilterStateBehavior` to your `behaviors()` of your controller.
+Add `ClearFilterStateBehavior` to `behaviors()` of your controller.
 ```php
     public function behaviors()
     {
