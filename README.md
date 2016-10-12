@@ -85,7 +85,7 @@ Add `ClearFilterStateBehavior` to your `behaviors()` of your controller.
 
 ```
 And then add a form to your frontend page.
-```html
+```php
         $form = Html::beginForm();
         $form.= Html::hiddenInput('clear-state', '1');
         $form.= Html::hiddenInput('redirect-to', '');
