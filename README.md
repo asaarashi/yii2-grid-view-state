@@ -87,12 +87,13 @@ Add `ClearFilterStateBehavior` to your `behaviors()` of your controller.
 And then add a form to your frontend page.
 ```php
         $form = Html::beginForm();
-        $form.= Html::hiddenInput('clear-state', '1');
-        $form.= Html::hiddenInput('redirect-to', '');
-        $form.= Button::widget([
+        $form .= Html::hiddenInput('clear-state', '1');
+        $form .= Html::hiddenInput('redirect-to', '');
+        $form .= Button::widget([
             'label' => Yii::t('app', 'Reset filter'),
         ]);
-        $form.= Html::endForm();
+        $form .= Html::endForm();
+        echo $form;
 ```
 
 Enjoy it.
