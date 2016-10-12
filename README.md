@@ -90,7 +90,7 @@ And then add a form to your frontend page.
         $form.= Html::hiddenInput('clear-state', '1');
         $form.= Html::hiddenInput('redirect-to', '');
         $form.= Button::widget([
-            'label' => '<i class="fa fa-refresh"></i> ' . Yii::t('app', 'Reset filter'),
+            'label' => Yii::t('app', 'Reset filter'),
         ]);
         $form.= Html::endForm();
 ```
