@@ -65,7 +65,6 @@ $dataProvider = new ActiveDataProvider([
         'params' => GridView::getMergedFilterStateParams(),
     ],
     'sort' => [
-        'attributes' => $attributeOrders,
         'params' => GridView::getMergedFilterStateParams(),
     ],
 ]);
