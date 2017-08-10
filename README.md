@@ -6,30 +6,21 @@ Save filters from GridView to session, keep the filter state between pages.
 2. Setting via behavior.
 3. Determines uniqueness by action's route and a customizable ID.
 
-## Installation 
-1.  The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+## Installation
 
-    Add the following section to your `composer.json`
-    ```
-    "repositories":[
-        {
-            "type": "git",
-            "url": "https://github.com/thrieu/yii2-grid-view-state.git"
-        }
-    ]
-    ```
-2.  Then either run
-    ```
-    php composer.phar require --prefer-dist thrieu/yii2-grid-view-state "dev-master"
-    ```
+To install, either run
+
+```
+php composer.phar require --prefer-dist thrieu/yii2-grid-view-state "dev-master"
+```
     
-    or add
+or add
     
-    ```
-    "thrieu/yii2-grid-view-state": "dev-master"
-    ```
+```
+"thrieu/yii2-grid-view-state": "dev-master"
+```
     
-    to the require section of your `composer.json` file and then run `composer update`.
+to the require section of your `composer.json` file and then run `composer update`.
 
 ## Usage
 ### Step 1
