@@ -47,7 +47,7 @@ class FilterStateBehavior extends Behavior {
         foreach ($gridView->columns as $column) {
             if (!$column instanceof DataColumn
                 || $column->attribute === null
-                || $column->filter === false) {
+                || $column->filter == false) {
                 continue;
             }
 
