@@ -19,7 +19,7 @@ class FilterStateBehavior extends Behavior {
 
     public function events() {
         return [
-            FilterStateInterface::EVENT_INIT => 'afterInit',
+            FilterStateInterface::EVENT_INITIALIZATION => 'afterInit',
         ];
     }
 
@@ -37,7 +37,7 @@ class FilterStateBehavior extends Behavior {
     /**
      * Retrieves state params from GridView and save it to session, including filter params, sort params and pagination params.
      */
-    public function readAndSaveState() {
+    public function readAndSaveState() { 
         $session = Yii::$app->session;
         /** @var \yii\grid\GridView $gridView */
         $gridView = $this->gridView;
