@@ -9,7 +9,7 @@ trait FilterStateTrait {
     public function init() {
         parent::init();
         /** @var \yii\grid\GridView $this */
-        $this->trigger(FilterStateInterface::EVENT_INIT);
+        $this->trigger(FilterStateInterface::EVENT_INITIALIZATION);
     }
 
     public static function getFilterStateParams($id = null) {

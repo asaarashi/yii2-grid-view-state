@@ -4,5 +4,5 @@ namespace thrieu\grid;
 
 
 interface FilterStateInterface {
-    const EVENT_INIT = 'init';
+    const EVENT_INITIALIZATION = 'init';
 }
