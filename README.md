@@ -45,20 +45,21 @@ GridView::widget([
 ]);
 ```
 ### Step 3
-Get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
+Update your ClassSearch model to get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
 ```php
-// Filter model
-$model->load(GridView::getMergedFilterStateParams());
 // DataProvider
 $dataProvider = new ActiveDataProvider([
     'query' => $query,
     'pagination' => [
-        'params' => GridView::getMergedFilterStateParams(),
+        'params' => \app\widgets\GridView::getMergedFilterStateParams(),
     ],
     'sort' => [
-        'params' => GridView::getMergedFilterStateParams(),
+        'params' => \app\widgets\GridView::getMergedFilterStateParams(),
     ],
 ]);
+// Filter model
+$this->load(\app\widgets\GridView::getMergedFilterStateParams());
+
 ```
 
 ### Clear state
