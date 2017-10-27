@@ -24,6 +24,7 @@ to the require section of your `composer.json` file and then run `composer updat
 
 ## Usage
 ### Step 1
+Create \app\widget\Gridview.php<br>
 Extend `GridView` class, simply implement `FilterStateInterface` and `FilterStateTrait`.
 ```php
 namespace \app\widgets;
@@ -45,7 +46,8 @@ GridView::widget([
 ]);
 ```
 ### Step 3
-Update your ClassSearch model to get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
+Update app\model\ModelSearch.php
+to get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
 ```php
 // DataProvider
 $dataProvider = new ActiveDataProvider([
