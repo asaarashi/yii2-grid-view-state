@@ -24,6 +24,8 @@ to the require section of your `composer.json` file and then run `composer updat
 
 ## Usage
 ### Step 1
+Create \app\widgets\Gridview.php
+
 Extend `GridView` class, simply implement `FilterStateInterface` and `FilterStateTrait`.
 ```php
 namespace \app\widgets;
@@ -38,6 +40,9 @@ class GridView extends \yii\grid\GridView implements FilterStateInterface {
 ### Step 2
 Attach the filter behavior to your `GridView` widget.
 ```php
+use \app\widgets\Gridview;
+...
+
 GridView::widget([
 ...
     'as filterBehavior' => \thrieu\grid\FilterStateBehavior::className(),
@@ -45,30 +50,35 @@ GridView::widget([
 ]);
 ```
 ### Step 3
-Get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
+Update \app\models\xxxSearch.php
+
+To get the params which is merged with GridView state params and GET query params, and then set it to filter model and `DataProvider`.
 ```php
-// Filter model
-$model->load(GridView::getMergedFilterStateParams());
 // DataProvider
 $dataProvider = new ActiveDataProvider([
     'query' => $query,
     'pagination' => [
-        'params' => GridView::getMergedFilterStateParams(),
+        'params' => \app\widgets\GridView::getMergedFilterStateParams(),
     ],
     'sort' => [
-        'params' => GridView::getMergedFilterStateParams(),
+        'params' => \app\widgets\GridView::getMergedFilterStateParams(),
     ],
 ]);
+// Filter model
+$this->load(\app\widgets\GridView::getMergedFilterStateParams());
+
 ```
 
 ### Clear state
+Update \app\controllers\xxxController.php
+
 Add `ClearFilterStateBehavior` to `behaviors()` of your controller.
 ```php
     public function behaviors()
     {
         return [
             ...
-            'clearFilterState' => ClearFilterStateBehavior::className(),
+            'clearFilterState' => \thrieu\grid\ClearFilterStateBehavior::className(),
             ...
         ];
     }
