@@ -45,13 +45,15 @@ class FilterStateBehavior extends Behavior {
         // Filter
         /** @var \yii\grid\DataColumn $column */
         foreach ($gridView->columns as $column) {
-            if (!$column instanceof DataColumn
-                || $column->attribute === null
-                || $column->filter == false) {
-                continue;
-            }
 
-            $this->composeFilterState($column);
+            if($column instanceof DataColumn
+                && $column->filter !== false
+                && $column->grid->filterModel instanceof \yii\base\Model
+                && $column->attribute !== null
+                && $column->grid->filterModel->isAttributeActive($column->attribute)) {
+                $this->composeFilterState($column);
+            }
+            
         }
         // Sort
         if ($gridView->dataProvider->getSort() !== false) {
