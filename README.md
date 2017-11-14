@@ -69,6 +69,8 @@ $this->load(\app\widgets\GridView::getMergedFilterStateParams());
 
 ```
 
+Enjoy it.
+
 ### Clear state
 Update \app\controllers\xxxController.php
 
@@ -95,5 +97,3 @@ And then add a form to your frontend page.
         $form .= Html::endForm();
         echo $form;
 ```
-
-Enjoy it.
