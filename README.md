@@ -1,5 +1,5 @@
 # yii2-grid-view-state
-Save filters from GridView to session, keep the filter state between pages.
+Save filters from GridView to session, keep filter state between pages.
 
 ## Features
 1. Very flexible. Separate setting and getting.
