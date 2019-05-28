@@ -12,18 +12,18 @@ trait FilterStateTrait {
         $this->trigger(FilterStateInterface::EVENT_INITIALIZATION);
     }
 
-    public static function getFilterStateParams($id = null) {
-        return FilterStateBehavior::getState($id);
+    public static function getFilterStateParams($id = null, $route = null) {
+        return FilterStateBehavior::getState($id, $route);
     }
 
     public static function clearFilterStateParams($id = null) {
         FilterStateBehavior::clearState($id);
     }
 
-    public static function getMergedFilterStateParams($id = null, $params = null) {
+    public static function getMergedFilterStateParams($id = null, $params = null, $route = null) {
         if($params === null) {
             $params = Yii::$app->request->get();
         }
-        return ArrayHelper::merge(static::getFilterStateParams($id), $params);
+        return ArrayHelper::merge(static::getFilterStateParams($id, $route), $params);
     }
 }
