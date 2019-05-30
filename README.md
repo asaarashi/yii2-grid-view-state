@@ -97,3 +97,10 @@ And then add a form to your frontend page.
         $form .= Html::endForm();
         echo $form;
 ```
+
+### get filter settings by route
+```php
+$filterData = GridView::getMergedFilterStateParams(null, null, 'delivery/cmd-delivery/index');
+$model->load($filterData);
+
+```
