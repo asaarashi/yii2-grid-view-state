@@ -99,7 +99,9 @@ class PrevNextPage
      */
     private function getPageIdListKey(): string
     {
-        return FilterStateBehavior::buildKey('', $this->route) . 'PageIdList';
+        return FilterStateBehavior::buildKey('', $this->route)
+            . Yii::$app->user->getId()
+            . 'PageIdList';
 
     }
 
@@ -108,7 +110,9 @@ class PrevNextPage
      */
     private function getDataProviderKey(): string
     {
-        return FilterStateBehavior::buildKey('', $this->route) . 'DataProvider';
+        return FilterStateBehavior::buildKey('', $this->route)
+            . Yii::$app->user->getId()
+            . 'DataProvider';
     }
 
     /**
