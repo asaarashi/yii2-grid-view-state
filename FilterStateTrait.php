@@ -3,27 +3,57 @@
 namespace thrieu\grid;
 
 use Yii;
+use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 
-trait FilterStateTrait {
-    public function init() {
+trait FilterStateTrait
+{
+
+    public $usePrevNext = false;
+    public $pageIdList = [];
+
+    public function init(): void
+    {
         parent::init();
-        /** @var \yii\grid\GridView $this */
+        /** @var GridView $this */
         $this->trigger(FilterStateInterface::EVENT_INITIALIZATION);
+
+        if ($this->usePrevNext) {
+            $this->beforeRow = static function (/** @noinspection PhpUnusedParameterInspection */ $model, $key, $index, $t) {
+                $t->pageIdList[$index] = $key;
+            };
+        }
     }
 
-    public static function getFilterStateParams($id = null) {
-        return FilterStateBehavior::getState($id);
+    public function afterRun($result)
+    {
+        if ($this->usePrevNext) {
+            /**
+             * save page records in cache
+             */
+            $prevNextPage = new PrevNextPage();
+            $prevNextPage->cacheDataProvider($this->dataProvider);
+            $prevNextPage->cachePageIdList($this->pageIdList);
+        }
+        return parent::afterRun($result);
     }
 
-    public static function clearFilterStateParams($id = null) {
+    public static function getFilterStateParams($id = null, $route = null)
+    {
+        return FilterStateBehavior::getState($id, $route);
+    }
+
+    public static function clearFilterStateParams($id = null)
+    {
         FilterStateBehavior::clearState($id);
     }
 
-    public static function getMergedFilterStateParams($id = null, $params = null) {
-        if($params === null) {
+    public static function getMergedFilterStateParams($id = null, $params = null, $route = null)
+    {
+        if ($params === null) {
+            /** @noinspection PhpUndefinedClassInspection */
             $params = Yii::$app->request->get();
         }
-        return ArrayHelper::merge(static::getFilterStateParams($id), $params);
+        return ArrayHelper::merge(static::getFilterStateParams($id, $route), $params);
     }
 }

@@ -134,19 +134,21 @@ class FilterStateBehavior extends Behavior {
      * Builds a unique key for the GridView.
      * It determines uniqueness of the GridView by a glue string of the current action route and a specified ID.
      * @param string $id
+     * @param string $route  use for creating key for other route filter
      * @return string
      */
-    public static function buildKey($id) {
-        return static::KEY_PREFIX . '_' . md5(Yii::$app->controller->route.$id);
+    public static function buildKey($id, $route = null) {
+        return static::KEY_PREFIX . '_' . md5($route !== null ? $route : Yii::$app->controller->route.$id);
     }
 
     /**
      * Retrieve state params from session.
      * @param string $id
+     * @param string $route use for reading filter for other route filter
      * @return array
      */
-    public static function getState($id = null) {
-        $state = Yii::$app->session->get(FilterStateBehavior::buildKey($id !== null ? $id : ''));
+    public static function getState($id = null, $route = null) {
+        $state = Yii::$app->session->get(FilterStateBehavior::buildKey($id !== null ? $id : '', $route));
         return $state !== null ? $state : [];
     }
 }

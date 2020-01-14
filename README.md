@@ -97,3 +97,57 @@ And then add a form to your frontend page.
         $form .= Html::endForm();
         echo $form;
 ```
+
+### get filter settings by route
+```php
+$filterData = GridView::getMergedFilterStateParams(null, null, 'delivery/cmd-delivery/index');
+$model->load($filterData);
+
+```
+
+### Prev Next model for view screens
+
+for gridview set usepreview = true
+
+```php
+use \app\widgets\Gridview;
+...
+
+GridView::widget([
+...
+    'as filterBehavior' => \thrieu\grid\FilterStateBehavior::class,
+    'usePrevNext' => true,
+...
+]);
+```
+
+for prev next buttons easy get previousa nd next model keys values
+
+```php
+        $prevNext = new PrevNextPage('cars/in-way/index');
+
+        if ($prevId = $prevNext->getPrevPage($model->id)) {
+            echo ThButton::widget([
+                    'tooltip' => Yii::t('blankonthema', 'Previous record'),
+                    'link' => [
+                        'view',
+                        'id' => $prevId,
+                    ],
+                    'icon' => 'arrow-left',
+                    'type' => ThButton::TYPE_DEFAULT
+                ]);
+        }
+        if ($nextId = $prevNext->getNextPage($this->id)) {
+            echo ThButton::widget([
+                'tooltip' => Yii::t('blankonthema', 'Next record'),
+                'link' => [
+                    'view',
+                    'id' => $nextId,
+                ],
+                'icon' => 'arrow-right',
+                'type' => ThButton::TYPE_DEFAULT
+            ]);
+        }
+
+
+```
